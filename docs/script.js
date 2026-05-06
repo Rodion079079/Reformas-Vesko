@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Menú móvil
   initMobileMenu();
+
+  // Carrusel de testimonios
+  initTestimonialsCarousel();
+
+  // Contador de caracteres del mensaje
+  initMessageCounter();
 });
 
 // Smooth scroll
@@ -105,14 +111,12 @@ function initContactForm() {
       
       // Recoger datos del formulario
       const formData = new FormData(this);
-      const data = {
-        nombre: formData.get('name'),
-        telefono: formData.get('phone'),
-        email: formData.get('email'),
-        servicio: formData.get('service'),
-        mensaje: formData.get('message')
-      };
-      
+      const nombre = formData.get('name');
+      const telefono = formData.get('phone');
+      const email = formData.get('email');
+      const servicio = formData.get('service');
+      const mensaje = formData.get('message');
+
       // Traducir servicio a texto
       const servicios = {
         'integral': 'Reforma integral',
@@ -123,38 +127,64 @@ function initContactForm() {
         'otro': 'Otro'
       };
       
-      const servicioTexto = servicios[data.servicio] || data.servicio;
-      
-      // Crear mensaje formateado con iconos de WhatsApp
-      const mensaje = `*NUEVA SOLICITUD DE PRESUPUESTO* %0A%0A` +
-        `%F0%9F%91%A4 *Nombre:* ${data.nombre}%0A` +
-        `%F0%9F%93%8E *Teléfono:* ${data.telefono}%0A` +
-        `%F0%9F%93%A7 *Email:* ${data.email || 'No especificado'}%0A` +
-        `%F0%9F%94%A7 *Tipo de reforma:* ${servicioTexto}%0A` +
-        `%F0%9F%92%AC *Mensaje:* ${data.mensaje || 'Sin mensaje adicional'}%0A%0A` +
-        `_Enviado desde la web de Vesko_`;
-      
+      const servicioTexto = servicios[servicio] || servicio;
+
+      // Construir mensaje SIN iconos
+      let textoMensaje = `*NUEVA SOLICITUD DE PRESUPUESTO*\n\n`;
+      textoMensaje += `*Nombre:* ${nombre}\n`;
+      textoMensaje += `*Telefono:* ${telefono}\n`;
+      textoMensaje += `*Tipo de reforma:* ${servicioTexto}\n`;
+
+      // Añadir email solo si existe
+      if (email && email.trim()) {
+        textoMensaje += `*Email:* ${email}\n`;
+      }
+
+      // Añadir mensaje solo si existe
+      if (mensaje && mensaje.trim()) {
+        textoMensaje += `\n*Mensaje:* ${mensaje}\n`;
+      }
+
+      // Codificar el mensaje para URL
+      const mensajeEncode = encodeURIComponent(textoMensaje);
+
       // Número de WhatsApp (sin el +)
-      const telefono = '34663693976';
-      
+      const telefono_whatsapp = '34663693976';
+
       // Abrir WhatsApp con el mensaje
-      const urlWhatsapp = `https://wa.me/${telefono}?text=${mensaje}`;
+      const urlWhatsapp = `https://wa.me/${telefono_whatsapp}?text=${mensajeEncode}`;
       window.open(urlWhatsapp, '_blank');
       
       // Feedback visual al usuario
-      const btn = this.querySelector('.btn-submit');
-      const originalText = btn.textContent;
-      btn.innerHTML = '&#128172; Enviando a WhatsApp...';
-      btn.style.background = '#25D366';
-      
+      const btn = this.querySelector('.btn-whatsapp');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'Abriendo WhatsApp...';
+      btn.style.opacity = '0.7';
+
       // Resetear después de 2 segundos
       setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
+        btn.innerHTML = originalText;
+        btn.style.opacity = '1';
         form.reset();
       }, 2000);
     });
   }
+}
+
+function initMessageCounter() {
+  const textarea = document.getElementById('message');
+  const counter = document.getElementById('messageCounter');
+
+  if (!textarea || !counter) return;
+
+  const max = parseInt(textarea.getAttribute('maxlength') || '200', 10);
+
+  const updateCounter = () => {
+    counter.textContent = `${textarea.value.length} / ${max}`;
+  };
+
+  textarea.addEventListener('input', updateCounter);
+  updateCounter();
 }
 
 // Menú móvil
@@ -219,6 +249,118 @@ function initMobileMenu() {
       document.querySelector('.mobile-menu').classList.toggle('active');
     });
   }
+}
+
+// Carrusel de Testimonios
+function initTestimonialsCarousel() {
+  const track = document.querySelector('.carousel-track');
+  const items = document.querySelectorAll('.carousel-item');
+  const prevBtn = document.querySelector('.carousel-prev');
+  const nextBtn = document.querySelector('.carousel-next');
+  const dots = document.querySelectorAll('.dot');
+  const wrapper = document.querySelector('.carousel-wrapper');
+
+  if (!track || !items.length) return;
+
+  let currentIndex = 0;
+  let itemsPerView = 3;
+  let gap = 30;
+  let autoSlideInterval;
+  let isAutoSliding = true;
+
+  // Detectar items por vista según el tamaño de pantalla
+  function updateItemsPerView() {
+    if (window.innerWidth <= 768) {
+      itemsPerView = 1;
+    } else if (window.innerWidth <= 1024) {
+      itemsPerView = 2;
+    } else {
+      itemsPerView = 3;
+    }
+  }
+
+  // Calcular el desplazamiento
+  function calculateTranslate() {
+    const itemWidth = track.querySelector('.carousel-item').offsetWidth;
+    const displacement = (itemWidth + gap) * currentIndex;
+    return -displacement;
+  }
+
+  // Actualizar posición del carrusel
+  function updateCarouselPosition() {
+    const translateValue = calculateTranslate();
+    track.style.transform = `translateX(${translateValue}px)`;
+
+    // Actualizar dots
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
+    });
+  }
+
+  // Ir al siguiente
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateCarouselPosition();
+  }
+
+  // Ir al anterior
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    updateCarouselPosition();
+  }
+
+  // Iniciar auto-slide
+  function startAutoSlide() {
+    if (autoSlideInterval) clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+  }
+
+  // Pausar auto-slide
+  function pauseAutoSlide() {
+    if (autoSlideInterval) clearInterval(autoSlideInterval);
+  }
+
+  // Event listeners para botones
+  prevBtn.addEventListener('click', () => {
+    prevSlide();
+    pauseAutoSlide();
+    startAutoSlide();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    nextSlide();
+    pauseAutoSlide();
+    startAutoSlide();
+  });
+
+  // Event listeners para dots
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateCarouselPosition();
+      pauseAutoSlide();
+      startAutoSlide();
+    });
+  });
+
+  // Pausar al pasar el mouse
+  wrapper.addEventListener('mouseenter', pauseAutoSlide);
+  wrapper.addEventListener('mouseleave', startAutoSlide);
+
+  // Actualizar elementos por vista al redimensionar
+  window.addEventListener('resize', () => {
+    updateItemsPerView();
+    updateCarouselPosition();
+  });
+
+  // Inicializar
+  updateItemsPerView();
+  updateCarouselPosition();
+
+  // Iniciar auto-slide automáticamente
+  startAutoSlide();
 }
 
 // Efecto parallax suave en el hero
