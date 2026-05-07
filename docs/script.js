@@ -360,20 +360,14 @@ function initTestimonialsCarousel() {
   if (!track || !items.length) return;
 
   let currentIndex = 0;
-  let itemsPerView = 3;
-  let gap = 30;
+  let itemsPerView = 1;
+  let gap = 18;
   let autoSlideInterval;
   let isAutoSliding = true;
 
   // Detectar items por vista según el tamaño de pantalla
   function updateItemsPerView() {
-    if (window.innerWidth <= 768) {
-      itemsPerView = 1;
-    } else if (window.innerWidth <= 1024) {
-      itemsPerView = 2;
-    } else {
-      itemsPerView = 3;
-    }
+    itemsPerView = 1;
   }
 
   // Calcular el desplazamiento
