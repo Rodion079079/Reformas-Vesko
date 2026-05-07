@@ -64,13 +64,15 @@ img {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255,255,255,0.95);
+  background: rgba(0,0,0,0.15);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   transition: var(--transition);
 }
 
 .header.scrolled {
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
   box-shadow: 0 2px 30px rgba(0,0,0,0.08);
 }
 
@@ -91,6 +93,11 @@ img {
   font-family: 'Poppins', sans-serif;
   font-size: 28px;
   font-weight: 700;
+  color: var(--white);
+  transition: var(--transition);
+}
+
+.header.scrolled .logo {
   color: var(--primary);
 }
 
@@ -114,9 +121,14 @@ img {
 .nav-link {
   font-size: 15px;
   font-weight: 500;
-  color: var(--primary);
+  color: rgba(255,255,255,0.9);
   position: relative;
   padding: 5px 0;
+  transition: var(--transition);
+}
+
+.header.scrolled .nav-link {
+  color: var(--primary);
 }
 
 .nav-link::after {
@@ -136,21 +148,32 @@ img {
 
 .btn-cta {
   padding: 12px 28px;
-  background: var(--primary);
+  background: rgba(255,102,0,0.9);
   color: var(--white);
   border-radius: 50px;
   font-size: 14px;
   font-weight: 500;
   transition: var(--transition);
-  border: 2px solid var(--primary);
+  border: 2px solid rgba(255,102,0,0.9);
   cursor: pointer;
 }
 
 .btn-cta:hover {
-  background: var(--secondary);
-  border-color: var(--secondary);
+  background: #ff8533;
+  border-color: #ff8533;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(255,102,0,0.3);
+}
+
+.header.scrolled .btn-cta {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+
+.header.scrolled .btn-cta:hover {
+  background: var(--secondary);
+  border-color: var(--secondary);
 }
 
 .menu-toggle {
@@ -160,14 +183,40 @@ img {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  padding: 8px;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
 }
 
 .menu-toggle span {
   width: 25px;
   height: 2px;
+  background: rgba(255,255,255,0.9);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+  display: block;
+  position: relative;
+}
+
+.header.scrolled .menu-toggle span {
   background: var(--primary);
-  transition: var(--transition);
+}
+
+/* Animación del menú hamburguesa a cruz */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(10px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-10px);
 }
 
 /* ========================================
@@ -937,30 +986,59 @@ img {
   margin-bottom: 30px;
 }
 
-.contact-hours-card {
+.contact-hours-card{
   background: var(--white);
   border-radius: 10px;
-  border-color: rgba(255,107,8);
   box-shadow: var(--shadow);
+
   padding: 20px;
-  border: 1px solid rgba(0,0,0,0.08);
-  margin-bottom: 0;
-  align-self: start;
+
+  position: relative;
+  overflow: hidden;
 }
 
-.contact-hours-card h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
+.border-light{
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
 }
 
-.contact-hours-card p {
-  color: var(--gray);
-  font-size: 14px;
-  margin-bottom: 6px;
+.border-path{
+  fill: none;
+
+  stroke: rgb(180,132,132);
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  filter:
+    drop-shadow(0 0 4px rgb(180,132,132))
+    drop-shadow(0 0 10px rgb(180,132,132));
+
+  /* UNA sola luz */
+  stroke-dasharray: 120 1076;
+
+  animation: borderRun 4s linear infinite;
 }
 
-.contact-hours-card p:last-child {
-  margin-bottom: 0;
+@keyframes borderRun{
+  from{
+    stroke-dashoffset: 0;
+  }
+
+  to{
+    stroke-dashoffset: -1196;
+  }
+}
+
+.contact-hours-card h3,
+.contact-hours-card p{
+  position: relative;
+  z-index: 2;
 }
 
 .contact-method {
@@ -1188,7 +1266,7 @@ img {
 
 .footer-brand .logo {
   color: var(--white);
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 
 .footer-brand .logo img {
@@ -1292,6 +1370,7 @@ img {
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding-top: 20px;
+  text-align: center;
 }
 
 .footer-bottom p {

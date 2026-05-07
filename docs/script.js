@@ -47,12 +47,52 @@ function initSmoothScroll() {
 // Header scroll effect
 function initHeaderScroll() {
   const header = document.querySelector('.header');
-  
+  const hero = document.querySelector('.hero');
+  const logoImg = header.querySelector('.logo img');
+
+  if (!hero) return;
+
+  // Usar IntersectionObserver para detectar cuándo salimos del hero
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.target === hero) {
+          // Si el hero no está visible en la pantalla
+          if (!entry.isIntersecting || entry.boundingClientRect.bottom < window.innerHeight / 2) {
+            header.classList.add('scrolled');
+            if (logoImg) {
+              logoImg.src = 'logo1 - copia.png';
+            }
+          } else {
+            header.classList.remove('scrolled');
+            if (logoImg) {
+              logoImg.src = 'logo2 - copia.png';
+            }
+          }
+        }
+      });
+    },
+    {
+      threshold: 0
+    }
+  );
+
+  observer.observe(hero);
+
+  // Fallback también con scroll manual para mayor compatibilidad
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
+    const heroRect = hero.getBoundingClientRect();
+
+    if (heroRect.bottom < 100) {
       header.classList.add('scrolled');
+      if (logoImg && logoImg.src.includes('logo2')) {
+        logoImg.src = 'logo1 - copia.png';
+      }
     } else {
       header.classList.remove('scrolled');
+      if (logoImg && logoImg.src.includes('logo1')) {
+        logoImg.src = 'logo2 - copia.png';
+      }
     }
   });
 }
@@ -193,60 +233,117 @@ function initMobileMenu() {
   const nav = document.querySelector('.nav');
   
   if (menuToggle && nav) {
-    menuToggle.addEventListener('click', () => {
+    // Crear menú móvil una sola vez
+    if (!document.querySelector('.mobile-menu')) {
+      const mobileMenu = document.createElement('div');
+      mobileMenu.className = 'mobile-menu';
+      mobileMenu.innerHTML = `
+        <nav class="mobile-nav">
+          <a href="#about" class="mobile-nav-link">Nosotros</a>
+          <a href="#services" class="mobile-nav-link">Servicios</a>
+          <a href="#work" class="mobile-nav-link">Proyectos</a>
+          <a href="#contact" class="mobile-nav-link">Contacto</a>
+          <a href="#contact" class="mobile-btn-presupuesto">Presupuesto</a>
+        </nav>
+      `;
+      document.body.appendChild(mobileMenu);
+
+      // Añadir estilos
+      const style = document.createElement('style');
+      style.textContent = `
+        .mobile-menu {
+          position: fixed;
+          top: 80px;
+          left: 0;
+          right: 0;
+          background: white;
+          padding: 30px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          transform: translateY(-100%);
+          opacity: 0;
+          transition: all 0.3s ease;
+          z-index: 999;
+          max-height: calc(100vh - 80px);
+          overflow-y: auto;
+        }
+        .mobile-menu.active {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        .mobile-nav {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .mobile-nav-link {
+          font-size: 18px;
+          font-weight: 500;
+          padding: 10px 0;
+          border-bottom: 1px solid #eee;
+          color: var(--primary);
+          transition: all 0.3s ease;
+        }
+        .mobile-nav-link:hover {
+          color: var(--secondary);
+          padding-left: 10px;
+        }
+        .mobile-nav-link:last-of-type {
+          border-bottom: none;
+          padding-bottom: 10px;
+          margin-bottom: 10px;
+        }
+        .mobile-btn-presupuesto {
+          display: block;
+          padding: 14px 24px !important;
+          background: var(--secondary);
+          color: var(--primary) !important;
+          border-radius: 50px;
+          font-size: 16px;
+          font-weight: 600;
+          text-align: center;
+          border: none;
+          border-bottom: none !important;
+          margin-top: 10px;
+          transition: all 0.3s ease;
+        }
+        .mobile-btn-presupuesto:hover {
+          background: #ff8533;
+          transform: translateY(-2px);
+          padding-left: 24px !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    // Toggle del menú
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       menuToggle.classList.toggle('active');
-      nav.classList.toggle('active');
-      
-      // Crear menú móvil si no existe
-      if (!document.querySelector('.mobile-menu')) {
-        const mobileMenu = document.createElement('div');
-        mobileMenu.className = 'mobile-menu';
-        mobileMenu.innerHTML = `
-          <nav class="mobile-nav">
-            <a href="#about">Nosotros</a>
-            <a href="#services">Servicios</a>
-            <a href="#work">Proyectos</a>
-            <a href="#contact">Contacto</a>
-          </nav>
-        `;
-        document.body.appendChild(mobileMenu);
-        
-        // Añadir estilos
-        const style = document.createElement('style');
-        style.textContent = `
-          .mobile-menu {
-            position: fixed;
-            top: 80px;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 999;
-          }
-          .mobile-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-          }
-          .mobile-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-          }
-          .mobile-nav a {
-            font-size: 18px;
-            font-weight: 500;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-          }
-        `;
-        document.head.appendChild(style);
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Cerrar menú al hacer click en un enlace
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Cerrar menú al hacer click en el botón presupuesto
+    document.querySelector('.mobile-btn-presupuesto').addEventListener('click', () => {
+      menuToggle.classList.remove('active');
+      mobileMenu.classList.remove('active');
+    });
+
+    // Cerrar menú al hacer click fuera de él
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        menuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
       }
-      
-      document.querySelector('.mobile-menu').classList.toggle('active');
     });
   }
 }
