@@ -111,7 +111,7 @@ module.exports = async (req, res) => {
       : '';
 
     // WEBHOOK DISCORD
-    const webhook = "PEGA_AQUI_TU_WEBHOOK_DISCORD";
+    const webhook = "https://discord.com/api/webhooks/1502302077756506303/HpNNJknITexFSo0lh6m8WslQ8FecgrlCQ9Dz9tmV1Ng0BZy4ezIt0xo0uIxbXmoaQzda";
 
     // Dibujar estrellas
     const starsRender =
