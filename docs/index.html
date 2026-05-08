@@ -412,6 +412,42 @@
         <span class="dot" data-index="3"></span>
         <span class="dot" data-index="4"></span>
       </div>
+      <!-- REVIEW FORM: pequeño formulario para enviar reseñas -->
+      <div class="reviews-panel">
+        <h3 class="section-subtitle">Deja tu reseña</h3>
+        <form id="reviewForm" class="review-form" novalidate>
+          <div class="form-group">
+            <input type="text" id="review-name" name="name" required placeholder=" ">
+            <label for="review-name">Nombre *</label>
+          </div>
+
+          <div class="form-group">
+            <select id="review-stars" name="stars" required>
+              <option value="" disabled selected>Selecciona estrellas</option>
+              <option value="5">5 - Excelente</option>
+              <option value="4">4 - Muy bien</option>
+              <option value="3">3 - Bien</option>
+              <option value="2">2 - Regular</option>
+              <option value="1">1 - Mala</option>
+            </select>
+            <label for="review-stars">Estrellas *</label>
+          </div>
+
+          <div class="form-group">
+            <textarea id="review-comment" name="comment" rows="4" placeholder=" " maxlength="1000"></textarea>
+            <label for="review-comment">Comentario (opcional)</label>
+            <div class="char-counter" id="reviewCounter">0 / 1000</div>
+          </div>
+
+          <!-- Honeypot: campo oculto para bots (debe quedar vacío) -->
+          <input type="text" name="website" id="hp_website" class="honeypot" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" tabindex="-1" autocomplete="off">
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Enviar reseña</button>
+            <div id="reviewMessage" role="status" aria-live="polite" style="margin-left:16px"></div>
+          </div>
+        </form>
+      </div>
     </div>
   </section>
 
