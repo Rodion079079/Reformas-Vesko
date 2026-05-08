@@ -1,12 +1,14 @@
 // Endpoint serverless para Vercel: /api/review
-// Recibe { name, stars, comment, website }
 
 const sendToDiscord = async (webhookUrl, payload) => {
+
   const res = await fetch(webhookUrl, {
     method: 'POST',
+
     headers: {
       'Content-Type': 'application/json'
     },
+
     body: JSON.stringify(payload),
   });
 
@@ -17,7 +19,7 @@ module.exports = async (req, res) => {
 
   try {
 
-    // Solo permitir POST
+    // Solo POST
     if (req.method !== 'POST') {
 
       res.setHeader('Allow', 'POST');
@@ -32,29 +34,7 @@ module.exports = async (req, res) => {
     const body =
       req.body && Object.keys(req.body).length
         ? req.body
-        : await (async () => {
-
-            try {
-
-              const raw = await new Promise((resolve) => {
-
-                let data = '';
-
-                req.on('data', chunk => data += chunk);
-
-                req.on('end', () => resolve(data));
-
-              });
-
-              return raw ? JSON.parse(raw) : {};
-
-            } catch (e) {
-
-              return {};
-
-            }
-
-          })();
+        : {};
 
     const {
       name,
@@ -111,7 +91,7 @@ module.exports = async (req, res) => {
       : '';
 
     // WEBHOOK DISCORD
-    const webhook = "https://discord.com/api/webhooks/1502302077756506303/HpNNJknITexFSo0lh6m8WslQ8FecgrlCQ9Dz9tmV1Ng0BZy4ezIt0xo0uIxbXmoaQzda";
+    const webhook = "PEGA_AQUI_TU_WEBHOOK_DISCORD";
 
     // Dibujar estrellas
     const starsRender =
