@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Contador de caracteres del mensaje
   initMessageCounter();
+
+  // Visor ampliado de imagenes (zoom + movimiento)
+  initImageViewer();
 });
 
 // Smooth scroll
@@ -231,19 +234,24 @@ function initMessageCounter() {
 function initMobileMenu() {
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
+  const header = document.querySelector('.header');
   
   if (menuToggle && nav) {
     // Crear menú móvil una sola vez
     if (!document.querySelector('.mobile-menu')) {
+      const navLinks = Array.from(nav.querySelectorAll('.nav-link'))
+        .map(link => `<a href="${link.getAttribute('href')}" class="mobile-nav-link">${link.textContent.trim()}</a>`)
+        .join('');
+      const cta = document.querySelector('.btn-cta');
+      const ctaLink = cta ? cta.getAttribute('href') : '#contact';
+      const ctaLabel = cta ? cta.textContent.trim() : 'Presupuesto';
+
       const mobileMenu = document.createElement('div');
       mobileMenu.className = 'mobile-menu';
       mobileMenu.innerHTML = `
         <nav class="mobile-nav">
-          <a href="#about" class="mobile-nav-link">Nosotros</a>
-          <a href="#services" class="mobile-nav-link">Servicios</a>
-          <a href="#work" class="mobile-nav-link">Proyectos</a>
-          <a href="#contact" class="mobile-nav-link">Contacto</a>
-          <a href="#contact" class="mobile-btn-presupuesto">Presupuesto</a>
+          ${navLinks}
+          <a href="${ctaLink}" class="mobile-btn-presupuesto">${ctaLabel}</a>
         </nav>
       `;
       document.body.appendChild(mobileMenu);
@@ -259,16 +267,18 @@ function initMobileMenu() {
           background: white;
           padding: 30px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-          transform: translateY(-100%);
+          transform: translateY(-12px);
           opacity: 0;
           transition: all 0.3s ease;
           z-index: 999;
           max-height: calc(100vh - 80px);
           overflow-y: auto;
+          pointer-events: none;
         }
         .mobile-menu.active {
           transform: translateY(0);
           opacity: 1;
+          pointer-events: auto;
         }
         .mobile-nav {
           display: flex;
@@ -279,7 +289,6 @@ function initMobileMenu() {
           font-size: 18px;
           font-weight: 500;
           padding: 10px 0;
-          border-bottom: 1px solid #eee;
           color: var(--primary);
           transition: all 0.3s ease;
         }
@@ -288,7 +297,6 @@ function initMobileMenu() {
           padding-left: 10px;
         }
         .mobile-nav-link:last-of-type {
-          border-bottom: none;
           padding-bottom: 10px;
           margin-bottom: 10px;
         }
@@ -296,18 +304,18 @@ function initMobileMenu() {
           display: block;
           padding: 14px 24px !important;
           background: var(--secondary);
-          color: var(--primary) !important;
+          color: var(--white) !important;
           border-radius: 50px;
           font-size: 16px;
           font-weight: 600;
           text-align: center;
           border: none;
-          border-bottom: none !important;
           margin-top: 10px;
           transition: all 0.3s ease;
         }
         .mobile-btn-presupuesto:hover {
           background: #ff8533;
+          color: var(--white) !important;
           transform: translateY(-2px);
           padding-left: 24px !important;
         }
@@ -316,6 +324,24 @@ function initMobileMenu() {
     }
 
     const mobileMenu = document.querySelector('.mobile-menu');
+    const closeMobileMenu = () => {
+      menuToggle.classList.remove('active');
+      mobileMenu.classList.remove('active');
+    };
+
+    const syncMobileMenuOffset = () => {
+      const headerHeight = header ? header.offsetHeight : 80;
+      mobileMenu.style.top = `${headerHeight}px`;
+      mobileMenu.style.maxHeight = `calc(100vh - ${headerHeight}px)`;
+    };
+
+    syncMobileMenuOffset();
+    window.addEventListener('resize', () => {
+      syncMobileMenuOffset();
+      if (window.innerWidth > 768) {
+        closeMobileMenu();
+      }
+    });
 
     // Toggle del menú
     menuToggle.addEventListener('click', (e) => {
@@ -327,22 +353,19 @@ function initMobileMenu() {
     // Cerrar menú al hacer click en un enlace
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        mobileMenu.classList.remove('active');
+        closeMobileMenu();
       });
     });
 
     // Cerrar menú al hacer click en el botón presupuesto
     document.querySelector('.mobile-btn-presupuesto').addEventListener('click', () => {
-      menuToggle.classList.remove('active');
-      mobileMenu.classList.remove('active');
+      closeMobileMenu();
     });
 
     // Cerrar menú al hacer click fuera de él
     document.addEventListener('click', (e) => {
       if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-        menuToggle.classList.remove('active');
-        mobileMenu.classList.remove('active');
+        closeMobileMenu();
       }
     });
   }
@@ -360,20 +383,17 @@ function initTestimonialsCarousel() {
   if (!track || !items.length) return;
 
   let currentIndex = 0;
-  let itemsPerView = 1;
-  let gap = 18;
   let autoSlideInterval;
-  let isAutoSliding = true;
-
-  // Detectar items por vista según el tamaño de pantalla
-  function updateItemsPerView() {
-    itemsPerView = 1;
+  
+  function getTrackGap() {
+    const computedGap = parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap);
+    return Number.isNaN(computedGap) ? 0 : computedGap;
   }
 
   // Calcular el desplazamiento
   function calculateTranslate() {
     const itemWidth = track.querySelector('.carousel-item').offsetWidth;
-    const displacement = (itemWidth + gap) * currentIndex;
+    const displacement = (itemWidth + getTrackGap()) * currentIndex;
     return -displacement;
   }
 
@@ -440,14 +460,31 @@ function initTestimonialsCarousel() {
   wrapper.addEventListener('mouseenter', pauseAutoSlide);
   wrapper.addEventListener('mouseleave', startAutoSlide);
 
-  // Actualizar elementos por vista al redimensionar
-  window.addEventListener('resize', () => {
-    updateItemsPerView();
+  // Recalibrar en cambios de viewport (evita cortes al activar modo móvil sin recargar)
+  function syncCarouselLayout() {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        updateCarouselPosition();
+      });
+    });
+  }
+
+  window.addEventListener('resize', syncCarouselLayout);
+  window.addEventListener('orientationchange', syncCarouselLayout);
+  window.addEventListener('pageshow', syncCarouselLayout);
+
+  // Si la pestaña vuelve a estar visible, revalida medidas del carrusel
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      syncCarouselLayout();
+    }
+  });
+
+  window.addEventListener('load', () => {
     updateCarouselPosition();
   });
 
   // Inicializar
-  updateItemsPerView();
   updateCarouselPosition();
 
   // Iniciar auto-slide automáticamente
@@ -462,3 +499,128 @@ window.addEventListener('scroll', () => {
     hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
   }
 });
+
+function initImageViewer() {
+  const galleryImages = document.querySelectorAll('.project-shot img, .general-gallery-grid img, .gallery-item img');
+  if (!galleryImages.length) return;
+
+  const viewer = document.createElement('div');
+  viewer.className = 'image-viewer';
+  viewer.setAttribute('aria-hidden', 'true');
+  viewer.innerHTML = `
+    <div class="image-viewer-backdrop"></div>
+    <div class="image-viewer-panel">
+      <button class="image-viewer-btn" data-action="zoom-out" aria-label="Reducir zoom">-</button>
+      <button class="image-viewer-btn" data-action="zoom-in" aria-label="Aumentar zoom">+</button>
+      <button class="image-viewer-btn" data-action="reset" aria-label="Restablecer vista">Reset</button>
+      <button class="image-viewer-btn close" data-action="close" aria-label="Cerrar">×</button>
+    </div>
+    <div class="image-viewer-stage">
+      <img class="image-viewer-img" alt="">
+    </div>
+  `;
+  document.body.appendChild(viewer);
+
+  const viewerImg = viewer.querySelector('.image-viewer-img');
+  const stage = viewer.querySelector('.image-viewer-stage');
+  const backdrop = viewer.querySelector('.image-viewer-backdrop');
+  const controls = viewer.querySelector('.image-viewer-panel');
+
+  let scale = 1;
+  let translateX = 0;
+  let translateY = 0;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  const minScale = 1;
+  const maxScale = 4;
+
+  function applyTransform() {
+    viewerImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    viewerImg.style.cursor = scale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in';
+  }
+
+  function resetView() {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    applyTransform();
+  }
+
+  function openViewer(img) {
+    viewerImg.src = img.src;
+    viewerImg.alt = img.alt || 'Imagen ampliada';
+    resetView();
+    viewer.classList.add('active');
+    viewer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeViewer() {
+    viewer.classList.remove('active');
+    viewer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    isDragging = false;
+  }
+
+  function zoom(delta) {
+    const nextScale = Math.max(minScale, Math.min(maxScale, scale + delta));
+    if (nextScale === minScale) {
+      translateX = 0;
+      translateY = 0;
+    }
+    scale = nextScale;
+    applyTransform();
+  }
+
+  galleryImages.forEach(img => {
+    img.addEventListener('click', () => openViewer(img));
+  });
+
+  controls.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.getAttribute('data-action');
+    if (action === 'zoom-in') zoom(0.25);
+    if (action === 'zoom-out') zoom(-0.25);
+    if (action === 'reset') resetView();
+    if (action === 'close') closeViewer();
+  });
+
+  backdrop.addEventListener('click', closeViewer);
+
+  document.addEventListener('keydown', (e) => {
+    if (!viewer.classList.contains('active')) return;
+    if (e.key === 'Escape') closeViewer();
+    if (e.key === '+' || e.key === '=') zoom(0.25);
+    if (e.key === '-') zoom(-0.25);
+    if (e.key.toLowerCase() === 'r') resetView();
+  });
+
+  stage.addEventListener('wheel', (e) => {
+    if (!viewer.classList.contains('active')) return;
+    e.preventDefault();
+    zoom(e.deltaY < 0 ? 0.2 : -0.2);
+  }, { passive: false });
+
+  viewerImg.addEventListener('mousedown', (e) => {
+    if (scale <= 1) return;
+    isDragging = true;
+    dragStartX = e.clientX - translateX;
+    dragStartY = e.clientY - translateY;
+    applyTransform();
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - dragStartX;
+    translateY = e.clientY - dragStartY;
+    applyTransform();
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    applyTransform();
+  });
+}
