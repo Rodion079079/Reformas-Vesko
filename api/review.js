@@ -2,7 +2,7 @@
 // Recibe { name, stars, comment, website } (website = honeypot)
 
 const sendToDiscord = async (webhookUrl, payload) => {
-  const res = await fetch(https://reformas-vesko.vercel.app/, {
+  const res = await fetch("https://reformas-vesko.vercel.app/", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
