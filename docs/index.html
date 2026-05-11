@@ -421,17 +421,22 @@
                 required
         >
 
-        <select
-                id="review-stars"
-                required
-        >
-          <option value="">Selecciona estrellas</option>
-          <option value="5">★★★★★</option>
-          <option value="4">★★★★☆</option>
-          <option value="3">★★★☆☆</option>
-          <option value="2">★★☆☆☆</option>
-          <option value="1">★☆☆☆☆</option>
-        </select>
+        <div class="rating-block">
+          <div class="rating-label">¿Cómo fue tu experiencia?</div>
+          <div class="rating-stars" role="radiogroup" aria-label="Valoración">
+            <input type="radio" name="review-stars" id="review-star-5" value="5" required>
+            <label for="review-star-5" title="Excelente">★</label>
+            <input type="radio" name="review-stars" id="review-star-4" value="4">
+            <label for="review-star-4" title="Muy bien">★</label>
+            <input type="radio" name="review-stars" id="review-star-3" value="3">
+            <label for="review-star-3" title="Bien">★</label>
+            <input type="radio" name="review-stars" id="review-star-2" value="2">
+            <label for="review-star-2" title="Aceptable">★</label>
+            <input type="radio" name="review-stars" id="review-star-1" value="1">
+            <label for="review-star-1" title="Necesita mejora">★</label>
+          </div>
+          <div class="rating-hint">Selecciona entre 1 y 5 estrellas</div>
+        </div>
 
         <textarea
                 id="review-comment"
