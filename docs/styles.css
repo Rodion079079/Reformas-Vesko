@@ -1804,6 +1804,8 @@ img {
   inset: 0;
   z-index: 3000;
   display: none;
+  touch-action: none;
+  overscroll-behavior: none;
 }
 
 .image-viewer.active {
@@ -1855,6 +1857,7 @@ img {
   padding: 80px 30px 30px;
   z-index: 1;
   overflow: hidden;
+  touch-action: none;
 }
 
 .image-viewer-img {
@@ -1867,6 +1870,7 @@ img {
   transform-origin: center center;
   transition: transform 0.12s ease;
   will-change: transform;
+  touch-action: none;
 }
 
 /* ========================================
