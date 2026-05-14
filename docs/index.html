@@ -353,11 +353,14 @@
           <div class="rating-hint">Selecciona entre 1 y 5 estrellas</div>
         </div>
 
-        <textarea
-                id="review-comment"
-                placeholder="Escribe tu reseña"
-                maxlength="1000"
-        ></textarea>
+        <div class="review-textarea-wrapper">
+          <textarea
+                  id="review-comment"
+                  placeholder="Escribe tu reseña"
+                  maxlength="1000"
+          ></textarea>
+          <div id="reviewCounter">0 / 1000</div>
+        </div>
 
         <!-- Honeypot anti spam -->
         <input
@@ -368,7 +371,20 @@
                 autocomplete="off"
         >
 
-        <div id="reviewCounter">0 / 1000</div>
+
+        <div class="form-consent">
+          <input type="checkbox" id="review-consent" name="review-consent" required>
+          <label for="review-consent" style="color: white;">
+            He leído y acepto la
+            <a href="legal.html#privacidad" target="_blank" rel="noopener" style="text-decoration: none;">
+              Política de Privacidad
+            </a>
+            y el
+            <a href="legal.html#aviso-legal" target="_blank" rel="noopener" style="text-decoration: none;">
+              Aviso Legal
+            </a>.
+          </label>
+        </div>
 
         <button type="submit">
           Enviar reseña
@@ -567,9 +583,24 @@
             <label for="service">Tipo de reforma</label>
           </div>
           <div class="form-group">
-            <textarea id="message" name="message" rows="4" placeholder=" " maxlength="200"></textarea>
+            <div class="contact-textarea-wrapper">
+              <textarea id="message" name="message" rows="4" placeholder=" " maxlength="200"></textarea>
+              <div class="char-counter" id="messageCounter">0 / 200</div>
+            </div>
             <label for="message">Cuéntanos brevemente tu proyecto</label>
-            <div class="char-counter" id="messageCounter">0 / 200</div>
+          </div>
+          <div class="form-consent">
+            <input type="checkbox" id="contact-consent" name="contact-consent" required>
+            <label for="contact-consent">
+              He leído y acepto la
+              <a href="legal.html#privacidad" target="_blank" rel="noopener" style="text-decoration: none;">
+                Política de Privacidad
+              </a>
+              y el
+              <a href="legal.html#aviso-legal" target="_blank" rel="noopener" style="text-decoration: none;">
+                Aviso Legal
+              </a>.
+            </label>
           </div>
           <button type="submit" class="btn-whatsapp">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -647,10 +678,14 @@
       <div class="footer-bottom">
         <p>© 2026 Reformas Vesko.</p>
         <p>Presupuestos claros y acompañamiento profesional de principio a fin.</p>
+        <p>
+          <a href="legal.html#privacidad">Política de Privacidad</a>
+          ·
+          <a href="legal.html#aviso-legal">Aviso Legal</a>
+        </p>
       </div>
     </div>
   </footer>
-
 
   <!-- WHATSAPP FLOAT -->
   <a href="https://wa.me/34663693976?text=Hola%2C%20necesito%20informaci%C3%B3n%20acerca%20de%20vuestros%20servicios.%20%C2%BFMe%20pod%C3%A9is%20ayudar%2C%20por%20favor%3F" class="whatsapp" title="Contactar por WhatsApp">
@@ -660,4 +695,3 @@
   <script src="script.js?v=3"></script>
   </body>
 </html>
-

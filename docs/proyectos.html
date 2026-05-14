@@ -125,33 +125,56 @@
         <div class="contact-wrapper">
           <div class="contact-info">
             <span class="section-tag">Contacto</span>
-            <h2 class="section-title">¿Quieres un resultado así<br>en tu vivienda?</h2>
-            <p class="contact-desc">Cuéntanos tu idea y te orientamos con una propuesta realista, materiales recomendados y presupuesto claro.</p>
+            <h2 class="section-title">Hablemos de<br>tu proyecto</h2>
+            <p class="contact-desc">Realizamos reformas en Alcossebre. Te asesoramos gratis y visitamos tu vivienda sin compromiso.</p>
 
             <div class="contact-methods">
               <a href="tel:663693976" class="contact-method">
-                <span class="method-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                  </svg>
-                </span>
+               <span class="method-icon">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                 </svg>
+               </span>
                 <div>
                   <span class="method-label">Llámanos</span>
                   <span class="method-value">663 69 39 76</span>
                 </div>
               </a>
               <a href="mailto:vesko7744@gmail.com" class="contact-method">
-                <span class="method-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                </span>
+               <span class="method-icon">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                   <polyline points="22,6 12,13 2,6"/>
+                 </svg>
+               </span>
                 <div>
                   <span class="method-label">Email</span>
                   <span class="method-value">vesko7744@gmail.com</span>
                 </div>
               </a>
+            </div>
+
+            <div class="contact-hours-card">
+
+              <svg class="border-light" viewBox="0 0 400 200" preserveAspectRatio="none">
+                <rect
+                        class="border-path"
+                        x="1"
+                        y="1"
+                        width="398"
+                        height="198"
+                        rx="10"
+                        ry="10"
+                        pathLength="1196"
+                />
+              </svg>
+
+              <h3>Horario de atención</h3>
+
+              <p><strong>Lunes a Sábado:</strong> 09:00 - 19:00</p>
+
+              <p><strong>Lugar de trabajo:</strong> Alcossebre</p>
+
             </div>
           </div>
 
@@ -182,9 +205,24 @@
               <label for="service">Tipo de reforma</label>
             </div>
             <div class="form-group">
-              <textarea id="message" name="message" rows="4" placeholder=" " maxlength="200"></textarea>
+              <div class="contact-textarea-wrapper">
+                <textarea id="message" name="message" rows="4" placeholder=" " maxlength="200"></textarea>
+                <div class="char-counter" id="messageCounter">0 / 200</div>
+              </div>
               <label for="message">Cuéntanos tu proyecto</label>
-              <div class="char-counter" id="messageCounter">0 / 200</div>
+            </div>
+            <div class="form-consent">
+              <input type="checkbox" id="contact-consent" name="contact-consent" required>
+              <label for="contact-consent">
+                He leído y acepto la
+                <a href="legal.html#privacidad" target="_blank" rel="noopener" style="text-decoration: none;">
+                  Política de Privacidad
+                </a>
+                y el
+                <a href="legal.html#aviso-legal" target="_blank" rel="noopener" style="text-decoration: none;">
+                  Aviso Legal
+                </a>.
+              </label>
             </div>
             <button type="submit" class="btn-whatsapp">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -193,18 +231,31 @@
               Enviar por WhatsApp
             </button>
           </form>
+
+          <div class="contact-map">
+            <h3>Zona de trabajo</h3>
+            <div class="map-embed">
+              <iframe
+                      title="Mapa de trabajo en Alcossebre"
+                      src="https://www.google.com/maps?q=Alcossebre&output=embed"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="container">
         <div class="footer-top">
           <div class="footer-brand">
-            <a href="index.html" class="logo">
+            <a href="#" class="logo">
               <img src="logo2.png" alt="Reformas Vesko">
             </a>
-            <p>Reformas integrales con acabados profesionales y seguimiento cercano en cada fase del proyecto.</p>
+            <p>Reformas integrales con acabados profesionales, plazos realistas y atención cercana durante todo el proyecto.</p>
           </div>
           <a href="#contact" class="footer-cta">Solicitar presupuesto</a>
         </div>
@@ -218,29 +269,51 @@
               <li>Tejados y terrazas</li>
               <li>Pintura y acabados</li>
             </ul>
-            <p class="footer-meta">Empresa de reformas en <span style="color: #f76500; text-decoration: underline;">Alcossebre</span> y alrededores.</p>
+            <p class="footer-meta">Empresa de reformas en <span style="color: #f76500;">Alcossebre</span>.</p>
           </div>
 
           <div class="footer-column footer-contact">
             <h4>Contacto rápido</h4>
-            <a href="tel:663693976" class="footer-contact-link">663 69 39 76</a>
-            <a href="mailto:vesko7744@gmail.com" class="footer-contact-link">vesko7744@gmail.com</a>
-            <a href="https://wa.me/34663693976?text=Hola%2C%20he%20visto%20vuestra%20galeria%20de%20proyectos%20y%20quiero%20presupuesto." class="footer-contact-link" target="_blank" rel="noopener noreferrer">WhatsApp directo</a>
-            <p class="footer-meta">Horario: Lunes a Sábado de 09:00 a 19:00.</p>
+            <a href="tel:663693976" class="footer-contact-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              663 69 39 76
+            </a>
+            <a href="mailto:vesko7744@gmail.com" class="footer-contact-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              vesko7744@gmail.com
+            </a>
+            <a href="https://wa.me/34663693976?text=Hola%2C%20necesito%20informaci%C3%B3n%20acerca%20de%20vuestros%20servicios.%20%C2%BFMe%20pod%C3%A9is%20ayudar%2C%20por%20favor%3F" class="footer-contact-link" target="_blank" rel="noopener noreferrer">
+              <svg class="footer-whatsapp-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+              </svg>
+              WhatsApp directo
+            </a>
+            <p class="footer-meta">Horario: <span style="color: #f76500;">Lunes</span> a <span style="color: #f76500;">Sábado</span> de <span style="color: #f76500;">09:00</span> a <span style="color: #f76500;">19:00.</span></p>
           </div>
         </div>
 
         <div class="footer-bottom">
           <p>© 2026 Reformas Vesko.</p>
-          <p>Galería profesional de proyectos reales.</p>
+          <p>Presupuestos claros y acompañamiento profesional de principio a fin.</p>
+          <p>
+            <a href="legal.html#privacidad">Política de Privacidad</a>
+            ·
+            <a href="legal.html#aviso-legal">Aviso Legal</a>
+          </p>
         </div>
       </div>
     </footer>
 
-    <a href="https://wa.me/34663693976?text=Hola%2C%20he%20visto%20vuestra%20galeria%20de%20proyectos%20y%20quiero%20presupuesto." class="whatsapp" title="Contactar por WhatsApp">
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/34663693976?text=Hola%2C%20necesito%20informaci%C3%B3n%20acerca%20de%20vuestros%20servicios.%20%C2%BFMe%20pod%C3%A9is%20ayudar%2C%20por%20favor%3F" class="whatsapp" title="Contactar por WhatsApp">
       <img src="logoWhatsapp.png" alt="Contactar por WhatsApp">
     </a>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=3"></script>
   </body>
 </html>
