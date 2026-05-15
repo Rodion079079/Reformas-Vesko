@@ -141,6 +141,7 @@ img {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 30px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -174,6 +175,9 @@ img {
 }
 
 .nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 40px;
@@ -208,15 +212,33 @@ img {
 }
 
 .btn-cta {
+  margin-left: auto;
   padding: 12px 28px;
   background: rgba(255,102,0,0.9);
   color: white;
   border-radius: 50px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   transition: var(--transition);
   border: 2px solid rgba(255,102,0,0.9);
   cursor: pointer;
+}
+
+.legal-page .header-container {
+  gap: 18px;
+}
+
+.legal-page .nav {
+  left: 50%;
+  gap: 22px;
+}
+
+.legal-page .nav-link {
+  font-size: 14px;
+}
+
+.legal-page .btn-cta {
+  margin-left: 0;
 }
 
 .btn-cta:hover {
@@ -2009,7 +2031,7 @@ img {
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 80px 30px 30px;
+  padding: 80px 16px 16px;
   z-index: 1;
   overflow: hidden;
   touch-action: none;
@@ -2026,6 +2048,8 @@ img {
   transition: transform 0.12s ease;
   will-change: transform;
   touch-action: none;
+  display: block;
+  margin: 0 auto;
 }
 
 /* ========================================
