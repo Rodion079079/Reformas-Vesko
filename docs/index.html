@@ -301,6 +301,29 @@
         <span class="dot" data-index="3"></span>
         <span class="dot" data-index="4"></span>
       </div>
+    </div>
+  </section>
+
+  <section class="section web-reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Reseñas verificadas</span>
+        <h2 class="section-title">
+          Opiniones de clientes
+        </h2>
+      </div>
+
+      <div class="reviews-grid" id="reviewsGrid"></div>
+      <div class="reviews-more">
+        <a href="reviews.html" class="btn-secondary">
+          Ver todas las reseñas
+        </a>
+      </div>
+
+      <div class="section-divider">
+        <span></span>
+      </div>
+
       <form id="reviewForm">
 
         <input type="text" id="review-name" placeholder="Tu nombre" required>
@@ -342,7 +365,7 @@
 
         <div class="form-consent">
           <input type="checkbox" id="review-consent" name="review-consent" required>
-          <label for="review-consent" style="color: white;">
+          <label for="review-consent">
             He leído y acepto la
             <a href="legal.html#privacidad" rel="noopener" style="text-decoration: none;">
               Política de Privacidad
@@ -354,31 +377,27 @@
           </label>
         </div>
 
+        <div class="review-public-choice">
+          <p>¿Nos autorizas a publicar tu reseña en la web?</p>
+
+          <div class="review-public-options">
+            <label>
+              <input type="radio" name="review-public" value="si" required>
+              Sí
+            </label>
+            <label>
+              <input type="radio" name="review-public" value="no" required>
+              No
+            </label>
+          </div>
+        </div>
+
         <button type="submit">
           Enviar reseña
         </button>
 
         <div id="reviewMessage"></div>
-
       </form>
-    </div>
-  </section>
-
-  <section class="section web-reviews">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Reseñas verificadas</span>
-        <h2 class="section-title">
-          Opiniones de clientes
-        </h2>
-      </div>
-
-      <div class="reviews-grid" id="reviewsGrid"></div>
-      <div class="reviews-more">
-        <a href="reviews.html" class="btn-secondary">
-          Ver todas las reseñas
-        </a>
-      </div>
     </div>
   </section>
 
