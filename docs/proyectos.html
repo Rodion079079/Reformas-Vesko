@@ -393,6 +393,63 @@
       <img src="logoWhatsapp.png" alt="Contactar por WhatsApp">
     </a>
 
+    <!-- COOKIE BANNER -->
+    <div id="cookieBanner" class="cookie-banner hidden">
+      <div class="cookie-main-row">
+        <p class="cookie-text">
+          Utilizamos cookies necesarias, analíticas y de marketing para mejorar la experiencia.
+          <a href="legal.html#cookies">Más información</a>
+        </p>
+
+        <div class="cookie-actions">
+          <button id="acceptCookies" class="cookie-btn cookie-btn-primary">
+            Aceptar todo
+          </button>
+
+          <button id="customizeCookies" class="cookie-btn">
+            Personalizar
+          </button>
+
+          <button id="rejectCookies" class="cookie-btn">
+            Rechazar todo
+          </button>
+        </div>
+      </div>
+
+      <div id="cookieOptions" class="cookie-options hidden">
+        <div class="cookie-toggles">
+
+          <label class="cookie-toggle">
+            <input type="checkbox" checked disabled>
+            <span>
+          <strong>Necesarias</strong><br>
+          Obligatorias para el funcionamiento de la web.
+        </span>
+          </label>
+
+          <label class="cookie-toggle">
+            <input type="checkbox" id="analyticsCookies">
+            <span>
+          <strong>Analíticas</strong><br>
+          Medición de visitas y comportamiento.
+        </span>
+          </label>
+
+          <label class="cookie-toggle">
+            <input type="checkbox" id="marketingCookies">
+            <span>
+          <strong>Marketing</strong><br>
+          Personalización y publicidad.
+        </span>
+          </label>
+
+        </div>
+
+        <button id="saveCookies" class="cookie-btn cookie-btn-primary">
+          Guardar
+        </button>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js?v=3"></script>
   </body>

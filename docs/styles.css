@@ -3080,3 +3080,141 @@ img {
   gap:8px;
   cursor:pointer;
 }
+
+/* ========================================
+   COOKIES
+======================================== */
+
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(15, 23, 42, 0.97);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 18px 22px;
+  z-index: 99999;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+.cookie-main-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cookie-text {
+  color: white;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cookie-text a {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.cookie-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cookie-btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.25s ease;
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.cookie-btn:hover {
+  transform: translateY(-2px);
+}
+
+.cookie-btn-primary {
+  background: var(--secondary);
+  color: white;
+}
+
+.cookie-btn-primary:hover {
+  background: #ff7d26;
+}
+
+.cookie-options {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cookie-toggles {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.cookie-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: white;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.cookie-toggle span {
+  white-space: normal;
+}
+
+.cookie-toggle input {
+  accent-color: var(--secondary);
+  transform: scale(1.15);
+  flex-shrink: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+
+  .cookie-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cookie-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cookie-actions {
+    width: 100%;
+  }
+
+  .cookie-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .cookie-toggles {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+}

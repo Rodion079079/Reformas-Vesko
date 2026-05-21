@@ -129,6 +129,14 @@
       <p>Titular del sitio web: Reformas Vesko</p>
       <p>Email: <a href="mailto:vesko7744@gmail.com"><span style="color: #f76500">vesko7744@gmail.com</span></a></p>
       <p>Teléfono: <a href="tel:+34633807795"><span style="color: #f76500">633 80 77 95</span></a></p>
+
+      <h3>Configuración de cookies</h3>
+      <p>El usuario puede aceptar, rechazar o configurar las cookies analíticas y de marketing mediante el banner mostra</p>
+      <ul>
+        <li><strong>Cookies necesarias:</strong> imprescindibles para el funcionamiento básico del sitio web.</li>
+        <li><strong>Cookies analíticas:</strong> permiten analizar el uso de la web y mejorar el contenido y la experiencia.</li>
+        <li><strong>Cookies de marketing:</strong> permiten personalizar campañas publicitarias y medir conversiones.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -202,6 +210,63 @@
   <img src="logoWhatsapp.png" alt="Contactar por WhatsApp">
 </a>
 
+<!-- COOKIE BANNER -->
+<div id="cookieBanner" class="cookie-banner hidden">
+  <div class="cookie-main-row">
+    <p class="cookie-text">
+      Utilizamos cookies necesarias, analíticas y de marketing para mejorar la experiencia.
+      <a href="legal.html#cookies">Más información</a>
+    </p>
+
+    <div class="cookie-actions">
+      <button id="acceptCookies" class="cookie-btn cookie-btn-primary">
+        Aceptar todo
+      </button>
+
+      <button id="customizeCookies" class="cookie-btn">
+        Personalizar
+      </button>
+
+      <button id="rejectCookies" class="cookie-btn">
+        Rechazar todo
+      </button>
+    </div>
+  </div>
+
+  <div id="cookieOptions" class="cookie-options hidden">
+    <div class="cookie-toggles">
+
+      <label class="cookie-toggle">
+        <input type="checkbox" checked disabled>
+        <span>
+          <strong>Necesarias</strong><br>
+          Obligatorias para el funcionamiento de la web.
+        </span>
+      </label>
+
+      <label class="cookie-toggle">
+        <input type="checkbox" id="analyticsCookies">
+        <span>
+          <strong>Analíticas</strong><br>
+          Medición de visitas y comportamiento.
+        </span>
+      </label>
+
+      <label class="cookie-toggle">
+        <input type="checkbox" id="marketingCookies">
+        <span>
+          <strong>Marketing</strong><br>
+          Personalización y publicidad.
+        </span>
+      </label>
+
+    </div>
+
+    <button id="saveCookies" class="cookie-btn cookie-btn-primary">
+      Guardar
+    </button>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js?v=3"></script>
 </body>
