@@ -1185,7 +1185,7 @@ img {
    CONTACT
    ======================================== */
 .contact {
-  background: var(--light);
+  background: var(--gray-light);
 }
 
 .contact-wrapper {
@@ -3216,5 +3216,4 @@ img {
     align-items: flex-start;
     gap: 16px;
   }
-
 }
