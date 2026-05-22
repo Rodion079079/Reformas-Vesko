@@ -262,13 +262,12 @@ img {
 }
 
 .header.scrolled .btn-cta {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: rgba(255,102,0,0.9);
   color: var(--white);
 }
 
 .header.scrolled .btn-cta:hover {
-  background: var(--secondary);
+  background: var(--primary);
   border-color: var(--secondary);
   color: var(--white);
 }
